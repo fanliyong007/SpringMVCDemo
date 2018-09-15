@@ -2,17 +2,23 @@ package com.mycom.spring.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+//实体类
 @Table(name="sp_Student")
+//表名称
 @GenericGenerator(name="genID",strategy="native")
+//主键名
 public class Student
 {
 	private Integer id;
@@ -31,8 +37,11 @@ public class Student
 				+ ", regTime=" + regTime + ", phone=" + phone + ", major=" + major + "]";
 	}
 	@Id
+	// 这表示一个主键
+	// @GeneratedValue 相当于native主键生成策略
 	@GeneratedValue(generator="genID")
 	@Column(name="ID",nullable=false,unique=true)
+	//定义列
 	public Integer getId()
 	{
 		return id;
@@ -95,7 +104,9 @@ public class Student
 	{
 		this.phone = phone;
 	}
-	@Column(name="Major")
+	@ManyToOne(cascade=CascadeType.REFRESH,optional=false)
+	//一对多关系并在刷新时级联操作
+	@JoinColumn(name="Major_ID",nullable=false)
 	public Major getMajor()
 	{
 		return major;

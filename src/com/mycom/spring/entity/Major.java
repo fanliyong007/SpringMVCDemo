@@ -11,6 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name="sp_Major")
 @GenericGenerator(name="genID",strategy="native")
+//hibernate提供的自定义主键生成策略的生成器，一般是要跟GeneratedValue这个一起使用
 public class Major
 {
 	private Integer id;
